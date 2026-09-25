@@ -1,69 +1,83 @@
-import Image from "next/image";
+import Link from "next/link";
+import { Hero } from "@/components/hero";
+import { Reveal } from "@/components/reveal";
+import { WorkIndex } from "@/components/work-index";
+
+const disciplines = [
+  {
+    index: "01",
+    title: "Product",
+    copy: "We decide what is worth building, in what order, and how it should behave once people depend on it.",
+  },
+  {
+    index: "02",
+    title: "Design",
+    copy: "Interfaces with a point of view. Systems, typography, and the small decisions that make a product feel inevitable.",
+  },
+  {
+    index: "03",
+    title: "Engineering",
+    copy: "Production software. Architecture, platforms, and the last mile between a prototype and something a company can run.",
+  },
+];
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <>
+      <Hero />
+      <WorkIndex />
+      <section className="border-t border-line px-6 py-24 md:px-10 md:py-32">
+        <div className="mx-auto max-w-[1440px]">
+          <Reveal>
+            <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-stone">The practice</p>
+            <h2 className="mt-4 max-w-3xl font-serif text-[clamp(2.4rem,5vw,4.6rem)] leading-[0.98] tracking-[-0.035em]">
+              Product and engineering, held in the same room.
+            </h2>
+          </Reveal>
+          <div className="mt-16 grid gap-12 md:grid-cols-3">
+            {disciplines.map((item, index) => (
+              <Reveal key={item.title} delay={index * 0.08}>
+                <p className="font-mono text-[11px] text-stone">{item.index}</p>
+                <h3 className="mt-4 text-2xl tracking-[-0.03em]">{item.title}</h3>
+                <p className="mt-4 max-w-sm text-sm leading-7 text-stone">{item.copy}</p>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+      <section className="bg-night px-6 py-28 text-cream md:px-10 md:py-40">
+        <Reveal className="mx-auto max-w-[1440px]">
+          <p className="max-w-5xl font-serif text-[clamp(2.2rem,5.4vw,5rem)] leading-[1.02] tracking-[-0.035em]">
+            Taste is a technical decision. The products that last are the ones where design and
+            engineering were never handed across a wall.
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href="/approach"
+            className="mt-12 inline-flex items-center gap-3 text-sm text-cream/80 transition-colors duration-300 hover:text-cream"
           >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            How we work <span>→</span>
+          </Link>
+        </Reveal>
+      </section>
+      <section className="px-6 py-28 md:px-10 md:py-36">
+        <Reveal className="mx-auto flex max-w-[1440px] flex-col items-start justify-between gap-10 md:flex-row md:items-end">
+          <div>
+            <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-stone">
+              A Gratebridge Labs company
+            </p>
+            <h2 className="mt-4 font-serif text-[clamp(2.8rem,6vw,5.5rem)] leading-[0.95] tracking-[-0.04em]">
+              Have a product
+              <span className="block italic">that has to hold up?</span>
+            </h2>
+          </div>
+          <Link
+            href="/contact"
+            className="inline-flex items-center gap-3 rounded-full bg-ink px-5 py-3 text-sm text-cream transition-transform duration-500 hover:-translate-y-0.5"
           >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+            Start a conversation <span>→</span>
+          </Link>
+        </Reveal>
+      </section>
+    </>
   );
 }
