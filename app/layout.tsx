@@ -30,6 +30,17 @@ export const metadata: Metadata = {
     template: "%s — Gratebridge Labs",
   },
   description: studio.description,
+  openGraph: {
+    title: "Gratebridge Labs — Technology agency",
+    description: studio.description,
+    siteName: studio.name,
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Gratebridge Labs — Technology agency",
+    description: studio.description,
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

@@ -1,21 +1,5 @@
-import nodemailer from "nodemailer";
 import { formatNgn, formatUsd, invoicePath } from "@/lib/billing/money";
 import type { Invoice } from "@/lib/billing/types";
-
-function transport() {
-  const port = Number(process.env.SMTP_PORT || 465);
-  const secure =
-    process.env.SMTP_SECURE === "true" || (process.env.SMTP_SECURE !== "false" && port === 465);
-  return nodemailer.createTransport({
-    host: process.env.SMTP_HOST || "server235.web-hosting.com",
-    port,
-    secure,
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASSWORD,
-    },
-  });
-}
 
 function shell(title: string, body: string) {
   return `<!doctype html><html><body style="margin:0;background:#f3f0e8;color:#12110f;font-family:Georgia,'Times New Roman',serif">
@@ -28,18 +12,30 @@ function shell(title: string, body: string) {
 }
 
 async function send(to: string, subject: string, html: string, replyTo?: string) {
-  if (!process.env.SMTP_USER || !process.env.SMTP_PASSWORD) {
-    return { ok: false as const, error: "Email is not configured" };
-  }
+  const base = process.env.COMPLIANCE_API_URL?.replace(/\/$/, "");
+  const secret = process.env.LABS_MAIL_SECRET;
+  if (!base || !secret) return { ok: false as const, error: "Email is not configured" };
   try {
-    const info = await transport().sendMail({
-      from: process.env.SMTP_FROM || `Labs <${process.env.SMTP_USER}>`,
-      to,
-      replyTo,
-      subject,
-      html,
+    const response = await fetch(`${base}/api/email/labs`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        "x-labs-mail-secret": secret,
+      },
+      body: JSON.stringify({
+        to,
+        subject,
+        html,
+        replyTo: replyTo || "hello@labs.gratebridge.com",
+      }),
     });
-    return { ok: true as const, messageId: info.messageId };
+    const body = (await response.json().catch(() => null)) as { success?: boolean; message?: string; messageId?: string } | null;
+    if (!response.ok || body?.success === false) {
+      const message = body?.message || "Send failed";
+      console.error("Labs mail failed:", message);
+      return { ok: false as const, error: message };
+    }
+    return { ok: true as const, messageId: body?.messageId };
   } catch (error) {
     const message = error instanceof Error ? error.message : "Send failed";
     console.error("Labs mail failed:", message);
