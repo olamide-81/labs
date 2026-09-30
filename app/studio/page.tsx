@@ -5,7 +5,8 @@ import { studio } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Studio",
-  description: "Gratebridge is the product and engineering agency of Gratebridge Labs.",
+  description:
+    "Gratebridge Labs is a technology agency and a data company. The agency is the main practice. Data studies consequential problems in different sectors.",
 };
 
 const principles = [
@@ -32,22 +33,52 @@ export default function StudioPage() {
     <div className="px-6 pt-32 pb-24 md:px-10 md:pt-40">
       <div className="mx-auto max-w-[1440px]">
         <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-stone">
-          {studio.parent}
+          {studio.domain}
         </p>
         <h1 className="mt-4 max-w-5xl font-serif text-[clamp(3.2rem,7vw,6.6rem)] leading-[0.92] tracking-[-0.04em]">
-          A studio for products
-          <span className="italic"> that have to last.</span>
+          A technology agency
+          <span className="italic"> and a data company.</span>
         </h1>
         <div className="mt-16 grid gap-12 lg:grid-cols-12">
           <p className="text-lg leading-8 lg:col-span-7">
-            {studio.name} is the product and engineering agency of {studio.parent}. We partner
-            with founders and operators who need software that can carry a business — across
-            finance, health, energy, commerce, mobility, and media.
+            {studio.name} is the lab. The technology agency is the main practice on this site:
+            one team that can define a product, design it, and engineer it through to production,
+            for operators in finance, health, energy, commerce, mobility, media, hospitality, and
+            insurance.
           </p>
-          <p className="text-[15px] leading-7 text-stone lg:col-span-4 lg:col-start-9">
-            The parent company is {studio.parent}. The practice is {studio.name}: a single team
-            that can define a product, design it, and engineer it through to production.
-          </p>
+          <div className="text-[15px] leading-7 text-stone lg:col-span-4 lg:col-start-9">
+            <p>
+              The commercial shape of the agency is simple: a software project, a website, or a
+              management retainer. Data is a separate practice. Labs studies consequential
+              problems in different sectors.
+            </p>
+            <p className="mt-4">
+              We do not run social media, content production, paid media, or brand identity as
+              a separate shop. If that is the brief, we will say so early.
+            </p>
+          </div>
+        </div>
+        <div className="mt-16 grid gap-px bg-line md:grid-cols-2">
+          <Link href="/pricing" className="group bg-paper p-8 transition-colors duration-500 hover:bg-night hover:text-cream md:p-12">
+            <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-stone group-hover:text-cream/55">
+              Agency
+            </p>
+            <h2 className="mt-4 font-serif text-4xl tracking-[-0.03em]">The work you hire.</h2>
+            <p className="mt-4 max-w-md text-sm leading-7 text-stone group-hover:text-cream/70">
+              Full software, websites, and a management retainer. This is the bulk of the lab.
+            </p>
+            <p className="mt-8 text-sm">See pricing →</p>
+          </Link>
+          <Link href="/data" className="group bg-paper p-8 transition-colors duration-500 hover:bg-night hover:text-cream md:p-12">
+            <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-stone group-hover:text-cream/55">
+              Data
+            </p>
+            <h2 className="mt-4 font-serif text-4xl tracking-[-0.03em]">Consequential problems.</h2>
+            <p className="mt-4 max-w-md text-sm leading-7 text-stone group-hover:text-cream/70">
+              Labs studies them in different sectors. The page is the study.
+            </p>
+            <p className="mt-8 text-sm">Read the inquiries →</p>
+          </Link>
         </div>
         <div className="mt-24 grid gap-px bg-line md:grid-cols-2">
           {principles.map((item) => (

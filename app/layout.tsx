@@ -24,9 +24,10 @@ const instrument = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(studio.url),
   title: {
-    default: "Gratebridge — Product & engineering",
-    template: "%s — Gratebridge",
+    default: "Gratebridge Labs — Technology agency",
+    template: "%s — Gratebridge Labs",
   },
   description: studio.description,
 };
@@ -35,9 +36,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${instrument.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${instrument.variable} antialiased`}
     >
-      <body className="min-h-full bg-paper text-ink">
+      <body className="bg-paper text-ink">
         <SmoothScroll>
           <Nav />
           <main id="content">{children}</main>

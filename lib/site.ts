@@ -1,16 +1,20 @@
 export const studio = {
-  name: "Gratebridge",
-  parent: "Gratebridge Labs",
-  email: "hello@gratebridgelabs.com",
+  name: "Gratebridge Labs",
+  company: "Gratebridge",
+  domain: "labs.gratebridge.com",
+  url: "https://labs.gratebridge.com",
+  email: "hello@labs.gratebridge.com",
+  calendly: "https://calendly.com/gratebridgelabs/30min",
   description:
-    "Gratebridge is the product and engineering agency of Gratebridge Labs. We design and build software for companies that operate across complex industries.",
+    "Gratebridge Labs is a technology agency and a data company. The agency designs and builds full software, websites, and management retainers. The data practice studies consequential problems in different sectors.",
 };
 
 export const nav = [
   { href: "/work", label: "Work" },
   { href: "/approach", label: "Approach" },
+  { href: "/pricing", label: "Pricing" },
+  { href: "/data", label: "Data" },
   { href: "/studio", label: "Studio" },
-  { href: "/contact", label: "Contact" },
 ] as const;
 
 export const industries = [
@@ -19,7 +23,7 @@ export const industries = [
   "Energy",
   "Commerce",
   "Mobility",
-  "Media",
+  "Agriculture",
   "Hospitality",
   "Insurance",
 ] as const;

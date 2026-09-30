@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { engagementHref, offers } from "@/lib/offers";
 import { nav, studio } from "@/lib/site";
 import { Mark } from "./mark";
 
@@ -6,18 +7,46 @@ export function Footer() {
   return (
     <footer className="bg-night text-cream">
       <div className="mx-auto grid max-w-[1440px] gap-16 px-6 py-20 md:px-10 md:py-28 lg:grid-cols-12">
-        <div className="lg:col-span-7">
+        <div className="lg:col-span-6">
           <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-cream/55">
             New business
           </p>
           <a
             href={`mailto:${studio.email}`}
-            className="mt-6 block font-serif text-[clamp(2.4rem,6vw,5.4rem)] leading-[0.95] tracking-[-0.03em] transition-colors duration-500 hover:text-signal"
+            className="mt-6 block max-w-full font-serif text-[clamp(1.7rem,7vw,4.4rem)] leading-[0.95] tracking-[-0.03em] break-words transition-colors duration-500 hover:text-signal"
           >
             {studio.email}
           </a>
+          <p className="mt-6 max-w-sm text-sm leading-6 text-cream/65">
+            A written scope before work starts. You own the code, the design, and the accounts.
+          </p>
         </div>
-        <div className="grid grid-cols-2 gap-10 lg:col-span-5 lg:justify-items-end">
+        <div className="grid grid-cols-2 gap-10 sm:grid-cols-3 lg:col-span-6">
+          <div>
+            <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-cream/55">
+              Engage
+            </p>
+            <ul className="mt-5 space-y-2">
+              {offers.map((offer) => (
+                <li key={offer.id}>
+                  <Link
+                    href={engagementHref(offer.id)}
+                    className="text-sm text-cream/85 transition-colors duration-300 hover:text-cream"
+                  >
+                    {offer.title}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <Link
+                  href="/contact"
+                  className="text-sm text-cream/85 transition-colors duration-300 hover:text-cream"
+                >
+                  Start a project
+                </Link>
+              </li>
+            </ul>
+          </div>
           <div>
             <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-cream/55">
               Index
@@ -35,23 +64,30 @@ export function Footer() {
               ))}
             </ul>
           </div>
-          <div>
+          <div className="col-span-2 sm:col-span-1">
             <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-cream/55">
               Studio
             </p>
+            <a href={studio.calendly} target="_blank" rel="noreferrer" className="mt-5 block text-sm text-cream/85 hover:text-cream">
+              Book a session
+            </a>
+            <Link href="/billing" className="mt-2 block text-sm text-cream/85 hover:text-cream">
+              Invoices
+            </Link>
             <p className="mt-5 max-w-[16rem] text-sm leading-6 text-cream/75">
-              {studio.name} is a product and engineering practice of {studio.parent}.
+              {studio.name} is a technology agency and a data company. This site is{" "}
+              {studio.domain}.
             </p>
           </div>
         </div>
       </div>
-      <div className="mx-auto flex max-w-[1440px] items-center justify-between gap-6 border-t border-cream/10 px-6 py-6 md:px-10">
+      <div className="mx-auto flex max-w-[1440px] flex-wrap items-center justify-between gap-4 border-t border-cream/10 px-6 py-6 md:px-10">
         <Link href="/" className="inline-flex items-center gap-3 text-sm">
           <Mark className="h-3.5 w-3.5" />
           {studio.name}
         </Link>
         <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-cream/45">
-          © {new Date().getFullYear()} {studio.parent}
+          © {new Date().getFullYear()} {studio.name}
         </p>
       </div>
     </footer>

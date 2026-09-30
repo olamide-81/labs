@@ -38,7 +38,7 @@ export default async function ProjectPage({
       <header className="px-6 pt-32 md:px-10 md:pt-40">
         <div className="mx-auto max-w-[1440px]">
           <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-stone">
-            {project.industry} — {project.year}
+            {project.year ? `${project.industry} — ${project.year}` : project.industry}
           </p>
           <h1 className="mt-5 max-w-5xl font-serif text-[clamp(3.2rem,7.4vw,7rem)] leading-[0.92] tracking-[-0.04em]">
             {project.name}
@@ -58,6 +58,33 @@ export default async function ProjectPage({
             {project.services.map((service) => (
               <li key={service}>{service}</li>
             ))}
+          </ul>
+          <ul className="mt-8 space-y-3">
+            {[
+              project.url
+                ? {
+                    href: project.url,
+                    label: project.url.includes("://app.") ? "App" : "Website",
+                    value: project.url.replace(/^https?:\/\//, "").replace(/\/$/, ""),
+                  }
+                : null,
+              project.appStore ? { href: project.appStore, label: "App Store", value: "Download" } : null,
+              project.playStore ? { href: project.playStore, label: "Google Play", value: "Download" } : null,
+            ]
+              .filter((link): link is { href: string; label: string; value: string } => link !== null)
+              .map((link) => (
+                <li key={link.label}>
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-baseline gap-3 text-sm text-stone transition-colors duration-300 hover:text-ink"
+                  >
+                    <span className="font-mono text-[11px] uppercase tracking-[0.16em]">{link.label}</span>
+                    {link.value} <span aria-hidden>→</span>
+                  </a>
+                </li>
+              ))}
           </ul>
         </aside>
         <div className="space-y-12 lg:col-span-7">
@@ -81,22 +108,24 @@ export default async function ProjectPage({
           </Reveal>
         </div>
       </div>
-      <section className="border-t border-line px-6 py-20 md:px-10">
-        <div className="mx-auto grid max-w-[1440px] gap-10 md:grid-cols-3">
-          {project.results.map((result) => (
-            <div key={result.label}>
-              <p className="font-serif text-5xl tracking-[-0.04em] md:text-6xl">{result.value}</p>
-              <p className="mt-3 max-w-[16rem] text-sm leading-6 text-stone">{result.label}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+      {project.results.length > 0 ? (
+        <section className="border-t border-line px-6 py-20 md:px-10">
+          <div className="mx-auto grid max-w-[1440px] gap-10 md:grid-cols-3">
+            {project.results.map((result) => (
+              <div key={result.label}>
+                <p className="font-serif text-5xl tracking-[-0.04em] md:text-6xl">{result.value}</p>
+                <p className="mt-3 max-w-[16rem] text-sm leading-6 text-stone">{result.label}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
       {next ? (
         <Link
           href={`/work/${next.slug}`}
           className="group block border-t border-line px-6 py-16 md:px-10 md:py-24"
         >
-          <div className="mx-auto flex max-w-[1440px] items-end justify-between gap-8">
+          <div className="mx-auto flex max-w-[1440px] flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
             <div>
               <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-stone">Next</p>
               <p className="mt-3 font-serif text-[clamp(2.4rem,5vw,4.5rem)] leading-none tracking-[-0.04em] transition-colors duration-500 group-hover:text-signal">

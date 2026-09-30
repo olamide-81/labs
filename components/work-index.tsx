@@ -21,7 +21,7 @@ export function WorkIndex() {
             Selected work
           </p>
           <h2 className="mt-4 max-w-md font-serif text-4xl leading-[1.05] tracking-[-0.03em] md:text-5xl">
-            Engagements across the industries we practice in.
+            Products in market.
           </h2>
           <ul className="mt-12 border-t border-line">
             {projects.map((project, index) => {

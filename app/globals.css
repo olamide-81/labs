@@ -25,8 +25,14 @@
 }
 
 html {
+  height: auto;
   scroll-behavior: auto;
   background: var(--paper);
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
 }
 
 body {
@@ -41,9 +47,18 @@ body {
   color: var(--cream);
 }
 
-:focus-visible {
+:focus-visible:not(input, textarea, select) {
   outline: 2px solid var(--signal);
   outline-offset: 3px;
+}
+
+input:focus,
+input:focus-visible,
+textarea:focus,
+textarea:focus-visible,
+select:focus,
+select:focus-visible {
+  outline: none;
 }
 
 @keyframes marquee {
@@ -82,4 +97,16 @@ body {
 
 .hairline {
   background: var(--line);
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+.quiet-scroll {
+  scrollbar-width: none;
+}
+
+.quiet-scroll::-webkit-scrollbar {
+  display: none;
 }

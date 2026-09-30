@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { Project } from "@/lib/projects";
 
 export function ProjectCover({
@@ -8,6 +9,27 @@ export function ProjectCover({
   className?: string;
 }) {
   const { bg, fg, accent } = project.palette;
+
+  if (project.image) {
+    return (
+      <div
+        className={`relative overflow-hidden ${className}`}
+        style={{ background: project.imageBg ?? bg }}
+      >
+        <Image
+          src={project.image}
+          alt=""
+          fill
+          className={
+            project.imageFit === "contain"
+              ? "object-contain object-center p-8 md:p-12"
+              : "object-cover object-center"
+          }
+          sizes="(min-width: 1024px) 60vw, 100vw"
+        />
+      </div>
+    );
+  }
 
   return (
     <div

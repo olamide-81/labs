@@ -1,101 +1,73 @@
 "use client";
 
-import { FormEvent, useState } from "react";
-import { studio } from "@/lib/site";
+import { useActionState } from "react";
+import { sendProjectNote, type ContactState } from "@/lib/contact";
+import { offers, type Offer } from "@/lib/offers";
 
-type Fields = {
-  name: string;
-  email: string;
-  company: string;
-  message: string;
-};
+type Engagement = Offer["id"] | "unsure";
 
-const empty: Fields = { name: "", email: "", company: "", message: "" };
+const engagementOptions: { value: Engagement; label: string }[] = [
+  ...offers.map((offer) => ({ value: offer.id, label: `${offer.title} — ${offer.kicker}` })),
+  { value: "unsure", label: "Not sure yet" },
+];
 
-export function ContactForm() {
-  const [fields, setFields] = useState<Fields>(empty);
-  const [error, setError] = useState("");
-  const [sent, setSent] = useState(false);
+const control =
+  "mt-2 w-full rounded-md border border-ink/25 bg-paper px-3 py-3 text-lg tracking-[-0.02em] outline-none transition-colors focus-visible:border-ink focus-visible:outline-none";
 
-  function update(key: keyof Fields, value: string) {
-    setFields((current) => ({ ...current, [key]: value }));
-  }
+export function ContactForm({ initialEngagement = "unsure" }: { initialEngagement?: string }) {
+  const engagement = engagementOptions.some((option) => option.value === initialEngagement)
+    ? initialEngagement
+    : "unsure";
+  const [state, action, pending] = useActionState(sendProjectNote, null as ContactState);
 
-  function onSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (!fields.name.trim() || !fields.email.trim() || !fields.message.trim()) {
-      setError("Name, email, and a short note are required.");
-      return;
-    }
-    if (!fields.email.includes("@")) {
-      setError("Enter a valid email so we can reply.");
-      return;
-    }
-    setError("");
-    const body = [`Name: ${fields.name}`, `Email: ${fields.email}`, `Company: ${fields.company || "—"}`, "", fields.message].join("\n");
-    window.location.href = `mailto:${studio.email}?subject=${encodeURIComponent(`New project — ${fields.name}`)}&body=${encodeURIComponent(body)}`;
-    setSent(true);
-  }
-
-  if (sent) {
+  if (state?.ok) {
     return (
       <div className="border-t border-line pt-10">
-        <p className="font-serif text-4xl leading-tight tracking-[-0.03em] italic">
-          Your note is ready in your mail app.
-        </p>
+        <p className="font-serif text-4xl leading-tight tracking-[-0.03em] italic">The note is with the Labs.</p>
         <p className="mt-4 max-w-md text-sm leading-6 text-stone">
-          If it did not open, write to {studio.email} and mention {fields.company || fields.name}.
+          A confirmation is on its way to your email. We reply with a clear next step.
         </p>
       </div>
     );
   }
 
   return (
-    <form onSubmit={onSubmit} className="border-t border-line" noValidate>
-      <Field label="Name" value={fields.name} onChange={(value) => update("name", value)} />
-      <Field label="Email" type="email" value={fields.email} onChange={(value) => update("email", value)} />
-      <Field label="Company" value={fields.company} onChange={(value) => update("company", value)} />
-      <label className="block border-b border-line py-6">
-        <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-stone">About the work</span>
-        <textarea
-          value={fields.message}
-          onChange={(event) => update("message", event.target.value)}
-          rows={5}
-          className="mt-3 w-full resize-none bg-transparent text-lg tracking-[-0.02em] outline-none"
-        />
+    <form action={action} className="grid gap-5 border-t border-line pt-8">
+      <label className="block">
+        <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-stone">Name</span>
+        <input name="name" required autoComplete="name" className={control} />
       </label>
-      {error ? <p className="pt-4 text-sm text-signal">{error}</p> : null}
+      <label className="block">
+        <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-stone">Email</span>
+        <input name="email" type="email" required autoComplete="email" className={control} />
+      </label>
+      <label className="block">
+        <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-stone">Company</span>
+        <input name="company" autoComplete="organization" className={control} />
+      </label>
+      <label className="block">
+        <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-stone">Engagement</span>
+        <select name="engagement" defaultValue={engagement} className={control}>
+          {engagementOptions.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+      </label>
+      <label className="block">
+        <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-stone">About the work</span>
+        <textarea name="message" required rows={5} className={`${control} resize-y`} />
+      </label>
+      {state?.error ? <p className="text-sm text-signal">{state.error}</p> : null}
       <button
         type="submit"
-        className="mt-8 inline-flex items-center gap-3 rounded-full bg-ink px-5 py-3 text-sm text-cream transition-transform duration-500 hover:-translate-y-0.5"
+        disabled={pending}
+        className="mt-2 inline-flex w-fit items-center gap-3 rounded-full bg-ink px-5 py-3 text-sm text-cream transition-transform duration-500 hover:-translate-y-0.5 disabled:opacity-60"
       >
-        Send the note
+        {pending ? "Sending" : "Send the note"}
         <span>→</span>
       </button>
     </form>
-  );
-}
-
-function Field({
-  label,
-  value,
-  onChange,
-  type = "text",
-}: {
-  label: string;
-  value: string;
-  onChange: (value: string) => void;
-  type?: string;
-}) {
-  return (
-    <label className="block border-b border-line py-6">
-      <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-stone">{label}</span>
-      <input
-        type={type}
-        value={value}
-        onChange={(event) => onChange(event.target.value)}
-        className="mt-3 w-full bg-transparent text-lg tracking-[-0.02em] outline-none"
-      />
-    </label>
   );
 }

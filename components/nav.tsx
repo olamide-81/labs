@@ -23,6 +23,10 @@ export function Nav() {
   }, []);
 
   useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
@@ -47,41 +51,51 @@ export function Nav() {
         }`}
       >
         <div className="mx-auto flex h-[4.5rem] max-w-[1440px] items-center justify-between px-6 md:px-10">
-          <Link href="/" className="inline-flex items-center gap-3 text-sm tracking-[-0.02em]">
+          <Link href="/" aria-label={studio.name} className="inline-flex items-center gap-3 text-sm tracking-[-0.02em]">
             <Mark />
-            <span>{studio.name}</span>
+            <span className="font-mono text-[11px] uppercase tracking-[0.18em]">Labs</span>
           </Link>
-          <nav className="hidden items-center gap-8 md:flex" aria-label="Primary">
-            {nav.map((item) => {
-              const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`text-sm tracking-[-0.01em] transition-colors duration-300 ${
-                    active ? "text-ink" : "text-stone hover:text-ink"
-                  }`}
-                  aria-current={active ? "page" : undefined}
-                >
-                  {item.label}
-                </Link>
-              );
-            })}
-          </nav>
-          <button
-            type="button"
-            className="font-mono text-[11px] uppercase tracking-[0.18em] md:hidden"
-            aria-expanded={open}
-            onClick={() => setOpen((value) => !value)}
-          >
-            {open ? "Close" : "Menu"}
-          </button>
+          <div className="flex items-center gap-5 lg:gap-8">
+            <nav className="hidden items-center gap-5 lg:flex lg:gap-8" aria-label="Primary">
+              {nav.map((item) => {
+                const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`text-sm tracking-[-0.01em] transition-colors duration-300 ${
+                      active ? "" : "text-stone hover:text-current"
+                    }`}
+                    aria-current={active ? "page" : undefined}
+                  >
+                    {item.label}
+                  </Link>
+                );
+              })}
+            </nav>
+            <Link
+              href="/contact"
+              className={`hidden rounded-full px-4 py-2 text-sm transition-transform duration-500 hover:-translate-y-0.5 lg:inline-flex ${
+                open ? "bg-cream text-ink" : "bg-ink text-cream"
+              }`}
+            >
+              Start a project
+            </Link>
+            <button
+              type="button"
+              className="font-mono text-[11px] uppercase tracking-[0.18em] lg:hidden"
+              aria-expanded={open}
+              onClick={() => setOpen((value) => !value)}
+            >
+              {open ? "Close" : "Menu"}
+            </button>
+          </div>
         </div>
       </header>
       <AnimatePresence>
         {open ? (
           <motion.div
-            className="fixed inset-0 z-30 flex flex-col justify-end bg-night px-6 pb-16 text-cream md:hidden"
+            className="fixed inset-0 z-30 flex flex-col justify-end bg-night px-6 pb-16 text-cream lg:hidden"
             initial={reduce ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -95,15 +109,20 @@ export function Nav() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.55, delay: 0.08 * index, ease }}
                 >
-                  <Link
-                    href={item.href}
-                    className="font-serif text-5xl leading-tight italic"
-                    onClick={() => setOpen(false)}
-                  >
+                  <Link href={item.href} className="font-serif text-5xl leading-tight italic">
                     {item.label}
                   </Link>
                 </motion.div>
               ))}
+              <motion.div
+                initial={reduce ? false : { opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.55, delay: 0.08 * nav.length, ease }}
+              >
+                <Link href="/contact" className="mt-6 inline-flex rounded-full bg-cream px-5 py-3 text-sm text-ink">
+                  Start a project
+                </Link>
+              </motion.div>
             </nav>
           </motion.div>
         ) : null}
