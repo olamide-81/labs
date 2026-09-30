@@ -37,15 +37,21 @@ export async function sendProjectNote(_prev: ContactState, formData: FormData): 
     createdAt: new Date().toISOString(),
   };
 
+  let saved = false;
   try {
     await insertNote(note);
-  } catch {
-    return { error: `The note did not save. Write to ${studio.email}.` };
+    saved = true;
+  } catch (error) {
+    console.error("Note save failed:", error instanceof Error ? error.message : error);
   }
 
   const sent = await emailProjectNote(note);
-  if (!sent.studio.ok || !sent.client.ok) {
-    return { error: `The note is saved, but email did not send. Write to ${studio.email}.` };
+  if (!sent.studio.ok) {
+    return {
+      error: saved
+        ? `The note is saved, but email did not send. Write to ${studio.email}.`
+        : `The note did not save. Write to ${studio.email}.`,
+    };
   }
   return { ok: true };
 }

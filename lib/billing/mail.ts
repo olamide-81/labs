@@ -1,3 +1,4 @@
+import nodemailer from "nodemailer";
 import { formatNgn, formatUsd, invoicePath } from "@/lib/billing/money";
 import type { Invoice } from "@/lib/billing/types";
 
@@ -12,6 +13,33 @@ function shell(title: string, body: string) {
 }
 
 async function send(to: string, subject: string, html: string, replyTo?: string) {
+  const host = process.env.SMTP_HOST;
+  const user = process.env.SMTP_USER;
+  const pass = process.env.SMTP_PASSWORD;
+  if (host && user && pass) {
+    try {
+      const port = Number(process.env.SMTP_PORT || 465);
+      const transporter = nodemailer.createTransport({
+        host,
+        port,
+        secure: process.env.SMTP_SECURE === "false" ? false : port === 465,
+        auth: { user, pass },
+      });
+      const info = await transporter.sendMail({
+        from: process.env.SMTP_FROM || `"Gratebridge Labs" <${user}>`,
+        to,
+        subject,
+        html,
+        replyTo: replyTo || "hello@labs.gratebridge.com",
+      });
+      return { ok: true as const, messageId: info.messageId };
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Send failed";
+      console.error("Labs mail failed:", message);
+      return { ok: false as const, error: message };
+    }
+  }
+
   const base = process.env.COMPLIANCE_API_URL?.replace(/\/$/, "");
   const secret = process.env.LABS_MAIL_SECRET;
   if (!base || !secret) return { ok: false as const, error: "Email is not configured" };
