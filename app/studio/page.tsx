@@ -4,7 +4,7 @@ import { Reveal } from "@/components/reveal";
 import { studio } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Studio",
+  title: "About",
   description:
     "Gratebridge Labs is a technology agency and a data company. The agency is the main practice. Data studies consequential problems in different sectors.",
 };
@@ -32,52 +32,26 @@ export default function StudioPage() {
   return (
     <div className="px-6 pt-32 pb-24 md:px-10 md:pt-40">
       <div className="mx-auto max-w-[1440px]">
-        <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-stone">
-          {studio.domain}
-        </p>
-        <h1 className="mt-4 max-w-5xl font-serif text-[clamp(3.2rem,7vw,6.6rem)] leading-[0.92] tracking-[-0.04em]">
+        <h1 className="max-w-5xl font-serif text-[clamp(3.2rem,7vw,6.6rem)] leading-[0.92] tracking-[-0.04em]">
           A technology agency
           <span className="italic"> and a data company.</span>
         </h1>
-        <div className="mt-16 grid gap-12 lg:grid-cols-12">
-          <p className="text-lg leading-8 lg:col-span-7">
-            {studio.name} is the lab. The technology agency is the main practice on this site:
-            one team that can define a product, design it, and engineer it through to production,
-            for operators in finance, health, energy, commerce, mobility, media, hospitality, and
-            insurance.
-          </p>
-          <div className="text-[15px] leading-7 text-stone lg:col-span-4 lg:col-start-9">
-            <p>
-              The commercial shape of the agency is simple: a software project, a website, or a
-              management retainer. Data is a separate practice. Labs studies consequential
-              problems in different sectors.
-            </p>
-            <p className="mt-4">
-              We do not run social media, content production, paid media, or brand identity as
-              a separate shop. If that is the brief, we will say so early.
-            </p>
-          </div>
-        </div>
+        <p className="mt-16 max-w-3xl text-lg leading-8">
+          {studio.name} defines a product, designs it, and engineers it through to production.
+          The work is a software project, a website, or a team that stays on after launch.
+        </p>
         <div className="mt-16 grid gap-px bg-line md:grid-cols-2">
           <Link href="/pricing" className="group bg-paper p-8 transition-colors duration-500 hover:bg-night hover:text-cream md:p-12">
-            <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-stone group-hover:text-cream/55">
-              Agency
-            </p>
-            <h2 className="mt-4 font-serif text-4xl tracking-[-0.03em]">The work you hire.</h2>
+            <h2 className="font-serif text-4xl tracking-[-0.03em]">Pricing</h2>
             <p className="mt-4 max-w-md text-sm leading-7 text-stone group-hover:text-cream/70">
-              Full software, websites, and a management retainer. This is the bulk of the lab.
+              Full software, websites, and a management retainer.
             </p>
-            <p className="mt-8 text-sm">See pricing →</p>
           </Link>
           <Link href="/data" className="group bg-paper p-8 transition-colors duration-500 hover:bg-night hover:text-cream md:p-12">
-            <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-stone group-hover:text-cream/55">
-              Data
-            </p>
-            <h2 className="mt-4 font-serif text-4xl tracking-[-0.03em]">Consequential problems.</h2>
+            <h2 className="font-serif text-4xl tracking-[-0.03em]">Data</h2>
             <p className="mt-4 max-w-md text-sm leading-7 text-stone group-hover:text-cream/70">
-              Labs studies them in different sectors. The page is the study.
+              Consequential problems, studied by sector.
             </p>
-            <p className="mt-8 text-sm">Read the inquiries →</p>
           </Link>
         </div>
         <div className="mt-24 grid gap-px bg-line md:grid-cols-2">
@@ -89,17 +63,14 @@ export default function StudioPage() {
           ))}
         </div>
         <Reveal className="mt-24 bg-night px-8 py-16 text-cream md:px-14 md:py-20">
-          <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-cream/50">
-            Work with us
-          </p>
-          <h2 className="mt-4 max-w-3xl font-serif text-[clamp(2.4rem,5vw,4.4rem)] leading-[1] tracking-[-0.035em]">
-            Tell us what the product has to do in the world.
+          <h2 className="max-w-3xl font-serif text-[clamp(2.4rem,5vw,4.4rem)] leading-[1] tracking-[-0.035em]">
+            Book a 30-minute call.
           </h2>
           <Link
             href="/contact"
-            className="mt-10 inline-flex items-center gap-3 text-sm text-cream/80 transition-colors duration-300 hover:text-cream"
+            className="mt-10 inline-flex rounded-full bg-cream px-5 py-3 text-sm text-ink"
           >
-            {studio.email} <span>→</span>
+            Book a call
           </Link>
         </Reveal>
       </div>

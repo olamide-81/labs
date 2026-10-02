@@ -10,6 +10,7 @@ export type Offer = {
   cadence: "project" | "month";
   figureNote: string;
   summary: string;
+  means: string;
   fit: string;
   includes: string[];
   close: string;
@@ -36,6 +37,8 @@ export const offers: Offer[] = [
     figureNote: "Typical first release",
     summary:
       "A product designed and engineered as one system — from the operating question to software a company can run.",
+    means:
+      "Full software is the product the company runs on. One team writes the scope, designs it, and engineers it through to a release you own.",
     fit: "For operators who need a first release that holds up in production, not a prototype that has to be explained.",
     includes: [
       "Written scope before work starts",
@@ -65,6 +68,8 @@ export const offers: Offer[] = [
     figureNote: "Typical delivery",
     summary:
       "A site with a point of view — designed and built to explain the company and bring the right work in.",
+    means:
+      "A website is the public face of the company. We structure it, design it, and build it so a visitor knows what you do and can take the next step.",
     fit: "For a flagship, a product site, or a rebuild of a site that no longer says what the company does.",
     includes: [
       "Structure, then design",
@@ -94,6 +99,8 @@ export const offers: Offer[] = [
     figureNote: "Product, design, and engineering",
     summary:
       "A dedicated team managing the product after launch — roadmap, design, and engineering against the live system.",
+    means:
+      "A retainer is a named team on the live product. Each month has a written plan. You can pause with notice, and you keep the work.",
     fit: "For a product in market, or an internal team that should not carry design and engineering alone.",
     includes: [
       "A named team",
@@ -112,8 +119,11 @@ export const offers: Offer[] = [
   },
 ];
 
+export const pricingNote =
+  "The figure is a starting point. The fee is set from the scope, the complexity, and the timeline.";
+
 export function engagementHref(id: Offer["id"] | "unsure" = "unsure") {
-  return id === "unsure" ? "/contact" : `/checkout?offer=${id}`;
+  return id === "unsure" ? "/contact" : `/contact?want=${id}`;
 }
 
 export function offerById(id: string | undefined) {

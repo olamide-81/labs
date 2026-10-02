@@ -37,8 +37,10 @@ export const projects: Project[] = [
     url: "https://paxalpay.com",
     appStore: "https://apps.apple.com/ng/app/paxalpay/id6761045303",
     playStore: "https://play.google.com/store/apps/details?id=com.paxalpay.mobileapp",
-    challenge: "Getting crypto into spendable money meant waiting on a peer-to-peer trade.",
-    response: "One wallet. Deposit, see the rate, then pay, transfer, or withdraw.",
+    challenge:
+      "Getting crypto into spendable money meant waiting on a peer-to-peer trade. The rate, the counterparty, and the payout were separate steps.",
+    response:
+      "Labs designed and engineered one wallet. A person deposits crypto, sees the rate, and then pays a bill, transfers to a bank, or scans to pay. The fee is on screen before the trade.",
     made: [
       "BTC, ETH, USDT, and other tokens",
       "Instant conversion to local currency",
@@ -63,8 +65,10 @@ export const projects: Project[] = [
     url: "https://app.richauntyfinance.com",
     appStore: "https://apps.apple.com/ng/app/raf-investment/id6740771324",
     playStore: "https://play.google.com/store/apps/details?id=com.rafengineering.rafmobileapp",
-    challenge: "Saving and investing were split across tools that did not show the person what they held.",
-    response: "One app for a goal, a vault, and the portfolio.",
+    challenge:
+      "Saving toward a goal and holding an investment sat in different tools. A person could not see the plan and what they held in one place.",
+    response:
+      "Labs designed and engineered one app for Rich Aunty Finance. A person sets a goal, holds naira or dollars, and sees the plans and assets together.",
     made: [
       "Plans for a goal: education, emergency, travel",
       "Naira and dollar",

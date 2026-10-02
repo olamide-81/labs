@@ -5,7 +5,6 @@ import { CheckoutForm } from "@/components/billing/checkout-form";
 import { Mark } from "@/components/mark";
 import { formatNgn, formatUsd, usdToNgn, usdToNgnRate } from "@/lib/billing/money";
 import { offerById } from "@/lib/offers";
-import { studio } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Checkout",
@@ -51,9 +50,9 @@ export default async function CheckoutPage({
           <div className="mt-8">
             <CheckoutForm offer={offer} rate={rate} />
           </div>
-          <a href={studio.calendly} target="_blank" rel="noreferrer" className="mt-8 inline-block text-sm text-stone hover:text-ink">
-            Book a discovery session →
-          </a>
+          <Link href="/contact" className="mt-8 inline-block text-sm text-stone hover:text-ink">
+            Book a call
+          </Link>
         </section>
       </div>
     </div>

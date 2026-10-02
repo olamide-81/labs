@@ -3,11 +3,12 @@
 import { useActionState } from "react";
 import { sendProjectNote, type ContactState } from "@/lib/contact";
 import { offers, type Offer } from "@/lib/offers";
+import { studio } from "@/lib/site";
 
 type Engagement = Offer["id"] | "unsure";
 
 const engagementOptions: { value: Engagement; label: string }[] = [
-  ...offers.map((offer) => ({ value: offer.id, label: `${offer.title} — ${offer.kicker}` })),
+  ...offers.map((offer) => ({ value: offer.id, label: offer.title })),
   { value: "unsure", label: "Not sure yet" },
 ];
 
@@ -24,9 +25,14 @@ export function ContactForm({ initialEngagement = "unsure" }: { initialEngagemen
     return (
       <div className="border-t border-line pt-10">
         <p className="font-serif text-4xl leading-tight tracking-[-0.03em] italic">The note is with the Labs.</p>
-        <p className="mt-4 max-w-md text-sm leading-6 text-stone">
-          A confirmation is on its way to your email. We reply with a clear next step.
-        </p>
+        <a
+          href={studio.calendly}
+          target="_blank"
+          rel="noreferrer"
+          className="mt-8 inline-flex rounded-full bg-ink px-5 py-3 text-sm text-cream"
+        >
+          Book the 30-minute call
+        </a>
       </div>
     );
   }
@@ -46,7 +52,7 @@ export function ContactForm({ initialEngagement = "unsure" }: { initialEngagemen
         <input name="company" autoComplete="organization" className={control} />
       </label>
       <label className="block">
-        <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-stone">Engagement</span>
+        <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-stone">What do you want to do</span>
         <select name="engagement" defaultValue={engagement} className={control}>
           {engagementOptions.map((option) => (
             <option key={option.value} value={option.value}>
@@ -65,8 +71,7 @@ export function ContactForm({ initialEngagement = "unsure" }: { initialEngagemen
         disabled={pending}
         className="mt-2 inline-flex w-fit items-center gap-3 rounded-full bg-ink px-5 py-3 text-sm text-cream transition-transform duration-500 hover:-translate-y-0.5 disabled:opacity-60"
       >
-        {pending ? "Sending" : "Send the note"}
-        <span>→</span>
+        {pending ? "Sending" : "Send"}
       </button>
     </form>
   );

@@ -11,10 +11,10 @@ export const studio = {
 
 export const nav = [
   { href: "/work", label: "Work" },
-  { href: "/approach", label: "Approach" },
+  { href: "/services", label: "Services" },
   { href: "/pricing", label: "Pricing" },
-  { href: "/data", label: "Data" },
-  { href: "/studio", label: "Studio" },
+  { href: "/articles", label: "Articles" },
+  { href: "/studio", label: "About" },
 ] as const;
 
 export const industries = [

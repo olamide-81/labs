@@ -1,23 +1,49 @@
 import Link from "next/link";
 import { Hero } from "@/components/hero";
-import { Reveal } from "@/components/reveal";
-import { offers } from "@/lib/offers";
-import { industries, studio } from "@/lib/site";
+import { PricingCards } from "@/components/pricing-board";
+import { engagementHref, offers } from "@/lib/offers";
 
-const lines = [
-  { title: "Product Team", line: "Scope, priority, and the release." },
-  { title: "Engineering", line: "The system, built to run." },
-  { title: "Operations", line: "How it is run after launch." },
-  { title: "Partnerships", line: "The teams beside the build." },
-  { title: "Quality Assurance", line: "What is checked before it ships." },
-  { title: "DevOps", line: "Release, hosting, and the live system." },
+const impact = [
+  { figure: "7,500", label: "Active users within 8 months of launch." },
+  { figure: "$3m", label: "Average monthly volume, on other products." },
+  { figure: "Monthly", label: "Consistent growth once a product is in market." },
 ] as const;
 
-const practice = [
-  { id: "software" as const, line: "A product, designed and engineered as one system." },
-  { id: "website" as const, line: "A site that says what the company does." },
-  { id: "retainer" as const, line: "A named team on the live product." },
-];
+const room = [
+  { title: "Product", copy: "What to build, for whom, and what comes first. The founder is in that decision." },
+  { title: "Engineering", copy: "The product, built from scratch. The app, the site, and the system behind them." },
+  { title: "Operations", copy: "The day after launch. The routine, the support, and what the founder’s team has to carry." },
+  { title: "Platforms", copy: "Banks, platforms, and vendors the product has to sit with." },
+  { title: "Quality", copy: "The main flows, checked before anything ships." },
+  { title: "Release", copy: "Hosting, deploys, and the environments the product lives in." },
+] as const;
+
+const beside = [
+  { title: "Ideate", copy: "The problem, the product, and what is worth building." },
+  { title: "Brainstorm", copy: "In the room with the founder, before a direction is locked." },
+  { title: "Build", copy: "From nothing, through to a release the founder owns." },
+  { title: "Try", copy: "Put a version in front of use, and learn what holds." },
+  { title: "Explore", copy: "New ideas, new paths, and what the live product should try next." },
+] as const;
+
+const method = [
+  {
+    title: "Scope first",
+    copy: "Written before the build: what it has to do, who it is for, what is out, the fee, and the timeline. The published figure is a start. The fee follows scope, complexity, and time.",
+  },
+  {
+    title: "One team",
+    copy: "Product, design, and engineering stay in the same room as the founder. The work is not passed between vendors.",
+  },
+  {
+    title: "Focus",
+    copy: "One release at a time. The ordinary day of the person who has to use it, including the empty states and the bad data.",
+  },
+  {
+    title: "Speed",
+    copy: "Clear first, then we move. The timeline is the plan. Quality and the release path are part of that plan, not a later surprise.",
+  },
+] as const;
 
 export default function Home() {
   return (
@@ -26,164 +52,126 @@ export default function Home() {
 
       <section className="px-6 py-16 md:px-10 md:py-24">
         <div className="mx-auto max-w-[1440px]">
-          <Reveal>
-            <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-stone">Engage</p>
-            <div className="mt-4 flex flex-col justify-between gap-6 md:flex-row md:items-end">
-              <h2 className="max-w-xl font-serif text-[clamp(2.6rem,5vw,4.6rem)] leading-[0.95] tracking-[-0.04em]">
-                Ways to work with the Labs.
-              </h2>
-              <p className="max-w-xs text-sm leading-6 text-stone">
-                Software, a website, or a team that stays. The fee is scoped in writing.
-              </p>
-            </div>
-          </Reveal>
-          <div className="mt-12 grid items-stretch gap-4 lg:grid-cols-3">
-            {practice.map((item, index) => {
-              const offer = offers.find((entry) => entry.id === item.id)!;
-              return (
-                <Reveal key={offer.id} delay={index * 0.06} className="h-full">
-                  <Link
-                    href={`/pricing#${offer.id}`}
-                    className="group flex h-full min-h-72 flex-col rounded-[1.4rem] p-7 md:min-h-80 md:p-8"
-                    style={{ background: offer.tone.bg, color: offer.tone.fg }}
-                  >
-                    <div className="flex items-center justify-between gap-4">
-                      <p
-                        className="font-mono text-[11px] uppercase tracking-[0.18em]"
-                        style={{ color: offer.tone.muted }}
-                      >
-                        {offer.kicker}
-                      </p>
-                      <p className="font-serif text-3xl italic leading-none" style={{ color: offer.tone.mark }}>
-                        {offer.index}
-                      </p>
-                    </div>
-                    <h3 className="pt-16 font-serif text-4xl leading-none tracking-[-0.04em]">{offer.title}</h3>
-                    <p className="mt-4 max-w-[16rem] text-sm leading-6" style={{ color: offer.tone.muted }}>
-                      {item.line}
-                    </p>
-                    <p className="mt-auto pt-8 text-sm">
-                      Scope and fee
-                      <span className="ml-2 inline-block transition-transform duration-500 group-hover:translate-x-1">
-                        →
-                      </span>
-                    </p>
-                  </Link>
-                </Reveal>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      <section className="px-6 pb-16 md:px-10 md:pb-24">
-        <Link
-          href="/work"
-          className="group relative mx-auto flex min-h-64 max-w-[1440px] flex-col justify-end overflow-hidden rounded-[1.6rem] px-7 py-10 md:min-h-80 md:px-14 md:py-14"
-          style={{
-            background:
-              "radial-gradient(ellipse 80% 140% at 92% 8%, rgb(226 74 18 / 0.34), transparent 52%), linear-gradient(128deg, #f6f1e6 0%, #f3e0cc 42%, #e8c4a4 100%)",
-          }}
-        >
-          <svg
-            viewBox="0 0 480 520"
-            className="pointer-events-none absolute top-1/2 right-10 hidden h-[78%] w-auto -translate-y-1/2 text-ink/75 lg:right-16 md:block"
-            fill="none"
-            aria-hidden
-          >
-            <rect x="64" y="72" width="250" height="320" rx="32" stroke="currentColor" strokeWidth="1.25" />
-            <rect x="156" y="140" width="250" height="320" rx="32" stroke="currentColor" strokeWidth="1.25" />
-            <path d="M104 168h130M104 204h88M104 240h110" stroke="currentColor" strokeWidth="1.25" />
-            <circle cx="300" cy="292" r="7" fill="currentColor" />
-            <path d="M307 292h78" stroke="#e24a12" strokeWidth="1.5" />
-            <circle cx="392" cy="292" r="7" fill="#e24a12" />
-          </svg>
-          <p className="relative font-mono text-[11px] uppercase tracking-[0.22em] text-stone">Work</p>
-          <h2 className="relative mt-4 max-w-xl font-serif text-[clamp(2.8rem,6vw,5.2rem)] leading-[0.92] tracking-[-0.04em]">
-            Products in market.
-          </h2>
-          <p className="relative mt-8 text-sm">
-            See the work
-            <span className="ml-2 inline-block transition-transform duration-500 group-hover:translate-x-1">→</span>
-          </p>
-        </Link>
-      </section>
-
-      <section className="px-6 pb-16 md:px-10 md:pb-24">
-        <div className="mx-auto max-w-[1440px] border-t border-line pt-12 md:pt-16">
-          <Reveal className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
-            <div>
-              <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-stone">Approach</p>
-              <h2 className="mt-4 max-w-xl font-serif text-[clamp(2.6rem,5vw,4.6rem)] leading-[0.95] tracking-[-0.04em]">
-                The practices on the work.
-              </h2>
-            </div>
-            <Link href="/approach" className="text-sm transition-colors duration-300 hover:text-signal">
-              How we work →
-            </Link>
-          </Reveal>
-          <ol className="mt-12 grid gap-px bg-line sm:grid-cols-2 lg:grid-cols-3">
-            {lines.map((step, index) => (
-              <li key={step.title} className="bg-paper p-6 md:p-8">
-                <p className="font-mono text-[11px] text-stone">{String(index + 1).padStart(2, "0")}</p>
-                <h3 className="mt-8 font-serif text-3xl tracking-[-0.03em]">{step.title}</h3>
-                <p className="mt-3 text-sm leading-6 text-stone">{step.line}</p>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
-      <section className="px-6 pb-16 md:px-10 md:pb-24">
-        <div className="mx-auto grid max-w-[1440px] gap-10 border-t border-line pt-12 md:pt-16 lg:grid-cols-12">
-          <Reveal className="lg:col-span-5">
-            <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-stone">Data</p>
-            <h2 className="mt-4 font-serif text-[clamp(2.6rem,5vw,4.6rem)] leading-[0.95] tracking-[-0.04em]">
-              Consequential problems in different sectors.
+          <div className="grid items-end gap-10 lg:grid-cols-12">
+            <h2 className="font-serif text-[clamp(2.8rem,5.4vw,5rem)] leading-[0.94] tracking-[-0.045em] lg:col-span-7">
+              We work directly with founders.
             </h2>
-            <p className="mt-5 max-w-md text-sm leading-6 text-stone">
-              Labs studies them. That is the data practice.
+            <p className="text-lg leading-8 text-stone lg:col-span-4 lg:col-start-9">
+              An experienced team beside you. We ideate, brainstorm, build it out, and try things. The exploration stays with the founder until the product is the one to ship.
             </p>
-            <Link href="/data" className="mt-8 inline-block text-sm transition-colors duration-300 hover:text-signal">
-              See the sectors →
-            </Link>
-          </Reveal>
-          <ul className="grid grid-cols-2 gap-px bg-line sm:grid-cols-4 lg:col-span-7">
-            {industries.map((industry, index) => (
-              <li key={industry} className="bg-paper px-4 py-6">
-                <p className="font-mono text-[11px] text-stone">{String(index + 1).padStart(2, "0")}</p>
-                <p className="mt-4 font-serif text-2xl tracking-[-0.03em]">{industry}</p>
+          </div>
+          <ul className="mt-14 grid gap-px bg-line sm:grid-cols-2 lg:grid-cols-5">
+            {beside.map((item) => (
+              <li key={item.title} className="bg-paper p-6 md:p-7">
+                <h3 className="font-serif text-3xl tracking-[-0.03em]">{item.title}</h3>
+                <p className="mt-3 text-sm leading-6 text-stone">{item.copy}</p>
               </li>
             ))}
           </ul>
         </div>
       </section>
 
+      <section className="bg-night px-6 py-16 text-cream md:px-10 md:py-24">
+        <div className="mx-auto max-w-[1440px]">
+          <h2 className="max-w-3xl font-serif text-[clamp(2.4rem,4.6vw,4rem)] leading-[0.96] tracking-[-0.04em]">
+            Built from scratch. The record is in fintech.
+          </h2>
+          <p className="mt-6 max-w-xl text-[15px] leading-7 text-cream/70">
+            Products made for consequential problems, then grown. Most of the work starts with nothing in market yet.
+          </p>
+          <div className="mt-14 grid gap-12 border-t border-cream/15 pt-12 sm:grid-cols-3">
+            {impact.map((item) => (
+              <div key={item.figure}>
+                <p className="font-serif text-6xl tracking-[-0.05em] md:text-7xl">{item.figure}</p>
+                <p className="mt-4 max-w-[16rem] text-sm leading-6 text-cream/70">{item.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="px-6 py-16 md:px-10 md:py-24">
+        <div className="mx-auto max-w-[1440px]">
+          <h2 className="font-serif text-[clamp(2.6rem,5vw,4.4rem)] leading-[0.95] tracking-[-0.04em]">
+            The room on the work
+          </h2>
+          <ul className="mt-12 grid gap-px bg-line sm:grid-cols-2 lg:grid-cols-3">
+            {room.map((item) => (
+              <li key={item.title} className="bg-paper p-7 md:p-9">
+                <h3 className="font-serif text-3xl tracking-[-0.03em]">{item.title}</h3>
+                <p className="mt-4 text-sm leading-6 text-stone">{item.copy}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="px-6 pb-16 md:px-10 md:pb-24">
+        <div className="mx-auto max-w-[1440px]">
+          <h2 className="font-serif text-[clamp(2.6rem,5vw,4.4rem)] leading-[0.95] tracking-[-0.04em]">
+            How the work runs
+          </h2>
+          <div className="mt-12 grid gap-4 md:grid-cols-2">
+            {method.map((item) => (
+              <article key={item.title} className="rounded-[1.2rem] bg-night px-7 py-8 text-cream md:px-8 md:py-10">
+                <h3 className="font-serif text-3xl tracking-[-0.03em]">{item.title}</h3>
+                <p className="mt-4 max-w-md text-sm leading-6 text-cream/70">{item.copy}</p>
+              </article>
+            ))}
+          </div>
+          <p className="mt-10 max-w-2xl text-lg leading-8">
+            The founder keeps the code, the design, and the accounts.
+          </p>
+        </div>
+      </section>
+
+      <section className="px-6 pb-16 md:px-10 md:pb-24">
+        <div className="mx-auto max-w-[1440px] border-t border-line pt-12 md:pt-16">
+          <h2 className="font-serif text-[clamp(2.6rem,5vw,4.6rem)] leading-[0.95] tracking-[-0.04em]">Services</h2>
+          <div className="mt-12 grid gap-10 lg:grid-cols-3">
+            {offers.map((offer) => (
+              <article key={offer.id} className="flex flex-col border-t border-line pt-6">
+                <h3 className="font-serif text-4xl tracking-[-0.04em]">{offer.title}</h3>
+                <p className="mt-4 text-sm leading-6 text-stone">{offer.means}</p>
+                <p className="mt-6 font-serif text-3xl tracking-[-0.04em]">{offer.figure}</p>
+                <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.16em] text-stone">{offer.unit}</p>
+                <Link href={engagementHref(offer.id)} className="mt-8 text-sm">
+                  Book a call
+                </Link>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="px-6 pb-16 md:px-10 md:pb-24">
+        <div className="mx-auto max-w-[1440px] border-t border-line pt-12 md:pt-16">
+          <h2 className="font-serif text-[clamp(2.6rem,5vw,4.6rem)] leading-[0.95] tracking-[-0.04em]">Pricing</h2>
+          <div className="mt-12">
+            <PricingCards />
+          </div>
+        </div>
+      </section>
+
+      <section className="px-6 pb-10 md:px-10">
+        <div className="mx-auto max-w-[1440px] border-t border-line pt-10">
+          <Link href="/articles" className="font-serif text-3xl tracking-[-0.03em]">
+            Articles
+          </Link>
+        </div>
+      </section>
+
       <section className="px-6 pb-20 md:px-10 md:pb-28">
         <div className="mx-auto max-w-[1440px] rounded-[1.6rem] bg-night px-7 py-14 text-cream md:px-14 md:py-20">
-          <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-cream/55">Discovery</p>
-          <h2 className="mt-4 max-w-3xl font-serif text-[clamp(2.8rem,5.5vw,5rem)] leading-[0.95] tracking-[-0.04em]">
-            A working session, not a pitch.
+          <h2 className="max-w-3xl font-serif text-[clamp(2.8rem,5.5vw,5rem)] leading-[0.95] tracking-[-0.04em]">
+            Thirty minutes with the founder.
           </h2>
-          <p className="mt-5 max-w-md text-sm leading-6 text-cream/65">
-            Thirty minutes. The product, the constraint, and whether we should write a scope.
-          </p>
-          <div className="mt-10 flex flex-wrap gap-3">
-            <a
-              href={studio.calendly}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-3 rounded-full bg-cream px-5 py-3 text-sm text-ink"
-            >
-              Book a session <span aria-hidden>→</span>
-            </a>
-            <Link
-              href="/pricing"
-              className="inline-flex items-center gap-3 rounded-full border border-cream/20 px-5 py-3 text-sm"
-            >
-              Start a project
-            </Link>
-          </div>
+          <Link
+            href="/contact"
+            className="mt-10 inline-flex rounded-full bg-cream px-5 py-3 text-sm text-ink"
+          >
+            Book a call
+          </Link>
         </div>
       </section>
     </>

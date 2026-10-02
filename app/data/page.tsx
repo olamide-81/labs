@@ -11,14 +11,10 @@ export default function DataPage() {
   return (
     <div className="px-6 pt-32 pb-24 md:px-10 md:pt-40 md:pb-32">
       <div className="mx-auto max-w-[1440px]">
-        <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-stone">Data</p>
-        <h1 className="mt-4 max-w-4xl font-serif text-[clamp(3.2rem,7vw,6.4rem)] leading-[0.92] tracking-[-0.04em]">
+        <h1 className="max-w-4xl font-serif text-[clamp(3.2rem,7vw,6.4rem)] leading-[0.92] tracking-[-0.04em]">
           Consequential problems
           <span className="italic"> in different sectors.</span>
         </h1>
-        <p className="mt-6 max-w-xl text-[15px] leading-7 text-stone">
-          Labs studies them across these sectors.
-        </p>
         <div className="mt-14 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           {inquiries.map((item) => (
             <article

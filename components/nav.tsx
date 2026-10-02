@@ -79,7 +79,7 @@ export function Nav() {
                 open ? "bg-cream text-ink" : "bg-ink text-cream"
               }`}
             >
-              Start a project
+              Book a call
             </Link>
             <button
               type="button"
@@ -120,7 +120,7 @@ export function Nav() {
                 transition={{ duration: 0.55, delay: 0.08 * nav.length, ease }}
               >
                 <Link href="/contact" className="mt-6 inline-flex rounded-full bg-cream px-5 py-3 text-sm text-ink">
-                  Start a project
+                  Book a call
                 </Link>
               </motion.div>
             </nav>

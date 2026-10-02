@@ -53,8 +53,7 @@ export default async function ProjectPage({
       </div>
       <div className="mx-auto grid max-w-[1440px] gap-16 px-6 py-20 md:px-10 md:py-28 lg:grid-cols-12">
         <aside className="lg:col-span-4">
-          <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-stone">Services</p>
-          <ul className="mt-4 space-y-2 text-sm">
+          <ul className="space-y-2 text-sm">
             {project.services.map((service) => (
               <li key={service}>{service}</li>
             ))}
@@ -81,7 +80,7 @@ export default async function ProjectPage({
                     className="inline-flex items-baseline gap-3 text-sm text-stone transition-colors duration-300 hover:text-ink"
                   >
                     <span className="font-mono text-[11px] uppercase tracking-[0.16em]">{link.label}</span>
-                    {link.value} <span aria-hidden>→</span>
+                    {link.value}
                   </a>
                 </li>
               ))}
@@ -92,11 +91,11 @@ export default async function ProjectPage({
             <p className="text-lg leading-8">{project.summary}</p>
           </Reveal>
           <Reveal>
-            <h2 className="font-serif text-3xl tracking-[-0.03em]">The situation</h2>
+            <h2 className="font-serif text-3xl tracking-[-0.03em]">Situation</h2>
             <p className="mt-4 text-[15px] leading-7 text-stone">{project.challenge}</p>
           </Reveal>
           <Reveal>
-            <h2 className="font-serif text-3xl tracking-[-0.03em]">What we did</h2>
+            <h2 className="font-serif text-3xl tracking-[-0.03em]">What shipped</h2>
             <p className="mt-4 text-[15px] leading-7 text-stone">{project.response}</p>
             <ul className="mt-8 space-y-4 border-t border-line">
               {project.made.map((item) => (
@@ -120,21 +119,22 @@ export default async function ProjectPage({
           </div>
         </section>
       ) : null}
+      <div className="border-t border-line px-6 py-16 md:px-10">
+        <div className="mx-auto max-w-[1440px]">
+          <Link href="/contact" className="inline-flex rounded-full bg-ink px-5 py-3 text-sm text-cream">
+            Book a call
+          </Link>
+        </div>
+      </div>
       {next ? (
         <Link
           href={`/work/${next.slug}`}
           className="group block border-t border-line px-6 py-16 md:px-10 md:py-24"
         >
-          <div className="mx-auto flex max-w-[1440px] flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
-            <div>
-              <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-stone">Next</p>
-              <p className="mt-3 font-serif text-[clamp(2.4rem,5vw,4.5rem)] leading-none tracking-[-0.04em] transition-colors duration-500 group-hover:text-signal">
-                {next.name}
-              </p>
-            </div>
-            <span className="pb-2 text-sm text-stone transition-transform duration-500 group-hover:translate-x-1">
-              {next.industry} →
-            </span>
+          <div className="mx-auto max-w-[1440px]">
+            <p className="font-serif text-[clamp(2.4rem,5vw,4.5rem)] leading-none tracking-[-0.04em] transition-colors duration-500 group-hover:text-signal">
+              {next.name}
+            </p>
           </div>
         </Link>
       ) : null}
