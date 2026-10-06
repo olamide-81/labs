@@ -15,7 +15,7 @@ const engagementOptions: { value: Engagement; label: string }[] = [
 const control =
   "mt-2 w-full rounded-md border border-ink/25 bg-paper px-3 py-3 text-lg tracking-[-0.02em] outline-none transition-colors focus-visible:border-ink focus-visible:outline-none";
 
-export function ContactForm({ initialEngagement = "unsure" }: { initialEngagement?: string }) {
+export function ContactForm({ initialEngagement = "unsure", initialSource = "" }: { initialEngagement?: string; initialSource?: string }) {
   const engagement = engagementOptions.some((option) => option.value === initialEngagement)
     ? initialEngagement
     : "unsure";
@@ -65,13 +65,18 @@ export function ContactForm({ initialEngagement = "unsure" }: { initialEngagemen
         <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-stone">About the work</span>
         <textarea name="message" required rows={5} className={`${control} resize-y`} />
       </label>
-      {state?.error ? <p className="text-sm text-signal">{state.error}</p> : null}
+      <div className="grid gap-5 sm:grid-cols-2">
+        <label className="block text-sm">Budget (USD)<select name="budget" className={control}><option value="">Let’s work it out</option><option>$750–$2,000</option><option>$2,000–$6,000</option><option>$6,000–$15,000</option><option>$15,000+</option></select></label>
+        <label className="block text-sm">Timeline<select name="timeline" className={control}><option>Exploring</option><option>This month</option><option>1–3 months</option><option>3+ months</option></select></label>
+      </div>
+      <label className="block text-sm">How did you find us? <span className="text-stone">(optional)</span><input name="source" defaultValue={initialSource} maxLength={200} className={control} placeholder="A referral, LinkedIn, Upwork…" /></label>
+      {state?.error ? <p role="alert" className="text-sm text-signal">{state.error}</p> : null}
       <button
         type="submit"
         disabled={pending}
         className="mt-2 inline-flex w-fit items-center gap-3 rounded-full bg-ink px-5 py-3 text-sm text-cream transition-transform duration-500 hover:-translate-y-0.5 disabled:opacity-60"
       >
-        {pending ? "Sending" : "Send"}
+        {pending ? "Sending…" : "Send project brief →"}
       </button>
     </form>
   );

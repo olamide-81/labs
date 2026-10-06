@@ -1,13 +1,8 @@
 import Link from "next/link";
+import { WorkShowcase } from "@/components/work-showcase";
 import { Hero } from "@/components/hero";
 import { PricingCards } from "@/components/pricing-board";
 import { engagementHref, offers } from "@/lib/offers";
-
-const impact = [
-  { figure: "7,500", label: "Active users within 8 months of launch." },
-  { figure: "$3m", label: "Average monthly volume, on other products." },
-  { figure: "Monthly", label: "Consistent growth once a product is in market." },
-] as const;
 
 const room = [
   { title: "Product", copy: "What to build, for whom, and what comes first. The founder is in that decision." },
@@ -49,6 +44,7 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <WorkShowcase />
 
       <section className="px-6 py-16 md:px-10 md:py-24">
         <div className="mx-auto max-w-[1440px]">
@@ -68,25 +64,6 @@ export default function Home() {
               </li>
             ))}
           </ul>
-        </div>
-      </section>
-
-      <section className="bg-night px-6 py-16 text-cream md:px-10 md:py-24">
-        <div className="mx-auto max-w-[1440px]">
-          <h2 className="max-w-3xl font-serif text-[clamp(2.4rem,4.6vw,4rem)] leading-[0.96] tracking-[-0.04em]">
-            Built from scratch. The record is in fintech.
-          </h2>
-          <p className="mt-6 max-w-xl text-[15px] leading-7 text-cream/70">
-            Products made for consequential problems, then grown. Most of the work starts with nothing in market yet.
-          </p>
-          <div className="mt-14 grid gap-12 border-t border-cream/15 pt-12 sm:grid-cols-3">
-            {impact.map((item) => (
-              <div key={item.figure}>
-                <p className="font-serif text-6xl tracking-[-0.05em] md:text-7xl">{item.figure}</p>
-                <p className="mt-4 max-w-[16rem] text-sm leading-6 text-cream/70">{item.label}</p>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 

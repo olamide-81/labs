@@ -8,7 +8,7 @@ const ease = [0.22, 1, 0.36, 1] as const;
 
 export function Hero() {
   const reduce = useReducedMotion();
-  const lines = ["We design and engineer", "the products companies", "put in market."];
+  const lines = ["Your next chapter.", "Designed. Engineered.", "Out in the world."];
 
   return (
     <section className="relative flex min-h-[70svh] flex-col bg-paper text-ink md:min-h-[78svh]">
@@ -27,8 +27,9 @@ export function Hero() {
             </span>
           ))}
         </h1>
+        <p className="mt-7 max-w-xl text-lg leading-8 text-stone">Your product, website, or next release. A technical team that takes it from the first sketch to launch, with the scope and fee agreed upfront.</p>
         <motion.div
-          className="mt-10"
+          className="mt-8 flex flex-wrap items-center gap-6"
           initial={reduce ? false : { opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.35, ease }}
@@ -37,8 +38,9 @@ export function Hero() {
             href="/contact"
             className="inline-flex rounded-full bg-ink px-5 py-3 text-sm text-cream transition-transform duration-500 hover:-translate-y-0.5"
           >
-            Book a call
+            Discuss your project
           </Link>
+          <Link href="#selected-work" className="text-sm underline underline-offset-4">Explore the work ↓</Link>
         </motion.div>
       </div>
       <div className="mx-auto flex w-full max-w-[1440px] flex-wrap gap-x-5 gap-y-2 border-t border-line px-6 py-4 md:px-10">

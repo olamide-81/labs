@@ -23,7 +23,7 @@ export async function sendProjectNote(_prev: ContactState, formData: FormData): 
   const engagement = engagementLabel(clean(formData.get("engagement")));
   const message = clean(formData.get("message")).slice(0, 4000);
 
-  if (!name || !email.includes("@") || !message) {
+  if (!name || name.length > 120 || company.length > 200 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 254 || !message) {
     return { error: "Name, email, and a short note are required." };
   }
 
@@ -33,7 +33,7 @@ export async function sendProjectNote(_prev: ContactState, formData: FormData): 
     email,
     company,
     engagement,
-    message,
+    message: `${message}\n\nBudget: ${clean(formData.get("budget")).slice(0, 100) || "Not specified"}\nTimeline: ${clean(formData.get("timeline")).slice(0, 100) || "Not specified"}\nSource: ${clean(formData.get("source")).slice(0, 200) || "Not specified"}`,
     createdAt: new Date().toISOString(),
   };
 
@@ -46,7 +46,7 @@ export async function sendProjectNote(_prev: ContactState, formData: FormData): 
   }
 
   const sent = await emailProjectNote(note);
-  if (!sent.studio.ok) {
+  if (!sent.studio.ok && !saved) {
     return {
       error: saved
         ? `The note is saved, but email did not send. Write to ${studio.email}.`

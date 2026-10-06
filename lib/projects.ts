@@ -47,7 +47,11 @@ export const projects: Project[] = [
       "Bills, airtime, bank transfer, scan to pay",
       "The fee is shown before the trade",
     ],
-    results: [],
+    results: [
+      { value: "4", label: "Everyday payment routes: bills, airtime, bank transfers, scan to pay" },
+      { value: "2", label: "Mobile platforms: iOS and Android" },
+      { value: "1", label: "Wallet connecting crypto and everyday spending" },
+    ],
   },
   {
     slug: "raf",
@@ -75,7 +79,11 @@ export const projects: Project[] = [
       "Vaults, flex savings, community plans",
       "Portfolio of plans and assets",
     ],
-    results: [],
+    results: [
+      { value: "2", label: "Currencies: naira and US dollars" },
+      { value: "2", label: "Mobile platforms: iOS and Android" },
+      { value: "1", label: "Portfolio for savings plans and investments" },
+    ],
   },
 ];
 

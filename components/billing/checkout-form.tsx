@@ -24,7 +24,7 @@ export function CheckoutForm({ offer, rate }: { offer: Offer; rate: number }) {
         <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-stone">Company</span>
         <input name="company" className="mt-2 w-full border-b border-line bg-transparent py-3 outline-none" />
       </label>
-      {state?.error ? <p className="text-sm text-signal">{state.error}</p> : null}
+      {state?.error ? <p role="alert" className="text-sm text-signal">{state.error}</p> : null}
       <button
         name="intent"
         value="pay"

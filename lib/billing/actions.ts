@@ -1,5 +1,6 @@
 "use server";
 
+import { chargeMatchesInvoice } from "@/lib/billing/validation";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { offerById } from "@/lib/offers";
@@ -126,7 +127,8 @@ export async function resumeAction(_prev: ActionState, formData: FormData): Prom
   const rows = await invoicesForEmail(email);
   if (rows.length === 0) return { error: "No invoices for that email." };
   try {
-    await emailResume(email, rows);
+    const sent = await emailResume(email, rows);
+    if (!sent.ok) return { error: "Email could not be sent. Please contact hello@labs.gratebridge.com." };
   } catch (error) {
     return { error: error instanceof Error ? error.message : "Could not send the email." };
   }
@@ -136,10 +138,10 @@ export async function resumeAction(_prev: ActionState, formData: FormData): Prom
 export async function confirmReturn(reference: string | undefined, invoiceId: string | undefined) {
   if (!reference) return null;
   const invoice = invoiceId ? await getInvoice(invoiceId) : await invoiceByReference(reference);
-  if (!invoice) return null;
+  if (!invoice || invoice.paystackReference !== reference) return null;
   const charge = await verifyPaystackCharge(reference);
-  if (charge?.status !== "success") return getInvoice(invoice.id);
-  const paid = await markPaid(invoice.id, reference);
+  if (!chargeMatchesInvoice(invoice, charge)) return getInvoice(invoice.id);
+  const paid = await markPaid(invoice.id, reference, charge!.amount!);
   if (paid.fresh && paid.invoice) await emailReceipt(paid.invoice).catch(() => undefined);
   return paid.invoice;
 }
@@ -154,7 +156,7 @@ export async function deskLoginAction(_prev: ActionState, formData: FormData): P
   const key = clean(formData.get("key"));
   if (!process.env.BILLING_DESK_KEY || key !== process.env.BILLING_DESK_KEY) return { error: "That key does not match." };
   const jar = await cookies();
-  jar.set("labs_desk", key, { httpOnly: true, sameSite: "lax", path: "/", maxAge: 60 * 60 * 24 * 14 });
+  jar.set("labs_desk", key, { secure: process.env.NODE_ENV === "production", httpOnly: true, sameSite: "lax", path: "/", maxAge: 60 * 60 * 24 * 14 });
   redirect("/billing/desk");
 }
 

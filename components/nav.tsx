@@ -11,6 +11,10 @@ const ease = [0.22, 1, 0.36, 1] as const;
 
 export function Nav() {
   const pathname = usePathname();
+  return <Navigation key={pathname} pathname={pathname} />;
+}
+
+function Navigation({ pathname }: { pathname: string }) {
   const reduce = useReducedMotion();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -21,10 +25,6 @@ export function Nav() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -85,7 +85,7 @@ export function Nav() {
               type="button"
               className="font-mono text-[11px] uppercase tracking-[0.18em] lg:hidden"
               aria-expanded={open}
-              onClick={() => setOpen((value) => !value)}
+              onClick={() => setOpen(value => !value)}
             >
               {open ? "Close" : "Menu"}
             </button>

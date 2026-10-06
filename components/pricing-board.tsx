@@ -31,12 +31,13 @@ export function PricingCards() {
               {pricingNote}
             </p>
             <Link
-              href={engagementHref(offer.id)}
+              href={`/checkout?offer=${offer.id}`}
               className="mt-8 inline-flex w-fit rounded-full px-5 py-3 text-sm"
               style={{ background: offer.tone.fg, color: offer.tone.bg }}
             >
-              Book a call
+              Start with {offer.title.toLowerCase()} →
             </Link>
+            <Link href={engagementHref(offer.id)} className="mt-4 text-sm underline underline-offset-4">Discuss the scope first</Link>
           </article>
         ))}
       </div>
@@ -48,7 +49,9 @@ export function PricingBoard() {
   return (
     <div className="px-6 pt-32 pb-24 md:px-10 md:pt-40 md:pb-32">
       <div className="mx-auto max-w-[1440px]">
-        <h1 className="sr-only">Pricing</h1>
+        <p className="font-mono text-xs uppercase tracking-[0.2em] text-stone">A clear place to start</p>
+        <h1 className="mt-4 max-w-3xl font-serif text-[clamp(3rem,6vw,5.5rem)] leading-[0.95] tracking-[-0.04em]">Good work.<br /><span className="italic text-stone">A clear agreement.</span></h1>
+        <p className="mb-12 mt-6 max-w-xl text-base leading-7 text-stone">Choose the engagement that fits. Review the starting fee, send a proposal, or talk through the scope before committing.</p>
         <PricingCards />
       </div>
     </div>

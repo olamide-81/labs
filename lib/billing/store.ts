@@ -69,24 +69,24 @@ export async function saveInvoice(id: string, patch: Partial<Invoice>, event?: I
   return getInvoice(id);
 }
 
-export async function markPaid(id: string, reference: string) {
+export async function markPaid(id: string, reference: string, amountKobo: number) {
   const existing = await getInvoice(id);
-  if (!existing || existing.status === "void") return { invoice: existing, fresh: false };
-  if (existing.status === "paid") return { invoice: existing, fresh: false };
+  if (!existing || existing.status !== "awaiting_payment" || existing.paystackReference !== reference ||
+      !existing.chargeNgn || !Number.isSafeInteger(amountKobo) || amountKobo !== Math.round(existing.chargeNgn * 100)) {
+    return { invoice: existing, fresh: false };
+  }
   const paidAt = new Date().toISOString();
-  const nextBill = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString();
-  const invoice = await saveInvoice(
-    id,
-    {
-      status: "paid",
-      paidAt,
-      receiptNumber: `RCT-${existing.number}`,
-      paystackReference: reference,
-      ...(existing.cadence === "month" ? { dueAt: nextBill } : {}),
+  const invoice = await (await collection()).findOneAndUpdate(
+    { id, status: "awaiting_payment", paystackReference: reference, chargeNgn: existing.chargeNgn },
+    { $set: {
+        status: "paid", paidAt, updatedAt: paidAt, receiptNumber: `RCT-${existing.number}`,
+        ...(existing.cadence === "month" ? { dueAt: new Date(Date.now() + 30 * 86400000).toISOString() } : {}),
+      },
+      $push: { events: { at: paidAt, type: "paid", note: `Paid. Reference ${reference}.` } },
     },
-    { at: paidAt, type: "paid", note: `Paid. Reference ${reference}.` },
+    { returnDocument: "after", projection: { _id: 0 } },
   );
-  return { invoice, fresh: true };
+  return { invoice: invoice ?? await getInvoice(id), fresh: Boolean(invoice) };
 }
 
 export async function dueForReminder(now = Date.now()) {
