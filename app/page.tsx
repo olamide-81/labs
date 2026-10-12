@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { WorkShowcase } from "@/components/work-showcase";
+import { ResearchGrid } from "@/components/research-grid";
 import { Hero } from "@/components/hero";
 import { PricingCards } from "@/components/pricing-board";
 import { engagementHref, offers } from "@/lib/offers";
@@ -127,6 +128,16 @@ export default function Home() {
           <div className="mt-12">
             <PricingCards />
           </div>
+        </div>
+      </section>
+
+      <section className="px-6 py-16 md:px-10 md:py-24">
+        <div className="mx-auto max-w-[1440px] border-t border-line pt-12">
+          <p className="font-mono text-xs uppercase tracking-widest text-stone">The data practice</p>
+          <h2 className="mt-5 max-w-4xl font-serif text-[clamp(2.8rem,5.4vw,5rem)] leading-[0.94] tracking-[-0.04em]">Consequential problems. <span className="italic">Eight sectors.</span></h2>
+          <p className="mt-6 max-w-2xl text-lg leading-8 text-stone">Evidence worth understanding. Explore the challenges in healthcare, energy, finance and beyond, with sourced data and questions for further research.</p>
+          <ResearchGrid />
+          <Link href="/data" className="mt-8 inline-block underline underline-offset-4">Explore the research library →</Link>
         </div>
       </section>
 
