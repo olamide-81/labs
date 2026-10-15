@@ -110,3 +110,15 @@ summary::-webkit-details-marker {
 .quiet-scroll::-webkit-scrollbar {
   display: none;
 }
+
+.founder-call {
+  background-image: radial-gradient(ellipse at 100% 100%, #243528 0%, transparent 65%);
+}
+@keyframes call-turn {
+  to { transform: rotate(360deg); }
+}
+.call-orbit { animation: call-turn 60s linear infinite; }
+.call-hand { animation: call-turn 30s linear infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .call-orbit, .call-hand { animation: none; }
+}
