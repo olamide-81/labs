@@ -122,3 +122,8 @@ summary::-webkit-details-marker {
 @media (prefers-reduced-motion: reduce) {
   .call-orbit, .call-hand { animation: none; }
 }
+
+.research-prose { color: var(--stone); line-height: 1.9; }
+.research-prose > p + p { margin-top: 1.25rem; }
+.research-prose > p strong { color: var(--ink); font-weight: 500; }
+@media print { nav, header + aside { display: none; } .research-prose { color: #222; } section { break-inside: auto; } }

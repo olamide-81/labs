@@ -15,15 +15,15 @@ export const research = [
   {
     "slug": "healthcare",
     "sector": "Healthcare",
-    "value": "4.6bn",
-    "label": "people not fully covered by essential health services",
-    "period": "2023 estimate · published 2025",
-    "publisher": "WHO · Universal health coverage",
-    "url": "https://www.who.int/news-room/fact-sheets/detail/universal-health-coverage-(UHC)",
-    "title": "Care has to be reachable",
-    "context": "Coverage is a question of access to needed services, not simply whether a clinic or an application exists. Research must consider affordability, staffing, referral pathways and continuity of care.",
-    "limits": "This is a global estimate of incomplete essential-service coverage, not a count of people who receive no healthcare. It cannot be used as a local patient count.",
-    "question": "Where does a referral stall between the first contact and the next necessary service?"
+    "value": "71.9%",
+    "label": "of Nigeria’s health spending paid directly by households",
+    "period": "2023 spending · Nigeria research dossier",
+    "publisher": "WHO / World Bank · Global Health Expenditure Database",
+    "url": "https://data.worldbank.org/indicator/SH.XPD.OOPC.CH.ZS?locations=NG",
+    "title": "The distance between illness and care",
+    "context": "A Nigeria-focused investigation of facilities, people, affordability and the cost of keeping a hospital running.",
+    "limits": "Share of current health expenditure, not the percentage of people unable to afford care.",
+    "question": "What would make dependable care affordable for a defined community?"
   },
   {
     "slug": "energy",

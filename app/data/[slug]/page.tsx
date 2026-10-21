@@ -1,15 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { NigeriaHealthcare } from "@/components/research/nigeria-healthcare";
 import { research } from "@/lib/research";
 export const dynamicParams = false;
 export function generateStaticParams() { return research.map(({slug}) => ({slug})); }
 export async function generateMetadata({params}: {params: Promise<{slug:string}>}): Promise<Metadata> {
  const {slug} = await params; const item = research.find(r => r.slug === slug);
+ if (slug === "healthcare") return {title:"Healthcare in Nigeria — access, workforce and hospital economics", description:"A sourced research dossier on Nigeria’s healthcare: facilities, workers, affordability, hospital costs, long-term operations and possible solutions."};
  return {title: item ? `${item.sector} research — ${item.title}` : "Research", description: item?.context};
 }
 export default async function ResearchPage({params}: {params: Promise<{slug:string}>}) {
  const {slug} = await params; const item = research.find(r => r.slug === slug); if (!item) notFound();
+ if (slug === "healthcare") return <NigeriaHealthcare />;
  return <article className="px-6 pb-24 pt-32 md:px-10 md:pt-40"><div className="mx-auto max-w-5xl">
  <Link href="/data" className="text-sm underline underline-offset-4">← All eight sectors</Link>
  <p className="mt-12 font-mono text-xs uppercase tracking-widest text-stone">{item.sector} / Research brief / Global scope</p>

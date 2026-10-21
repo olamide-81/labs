@@ -1,0 +1,208 @@
+{
+  "retrieved": "2026-10-20",
+  "url": "https://api.worldbank.org/v2/country/NG;GH;KE;ZA;GB;US/indicator/SH.XPD.CHEX.PC.CD?format=json&date=2023:2024&per_page=100",
+  "response": [
+    {
+      "page": 1,
+      "pages": 1,
+      "per_page": 100,
+      "total": 12,
+      "sourceid": "2",
+      "lastupdated": "2026-10-08"
+    },
+    [
+      {
+        "indicator": {
+          "id": "SH.XPD.CHEX.PC.CD",
+          "value": "Current health expenditure per capita (current US$)"
+        },
+        "country": {
+          "id": "GB",
+          "value": "United Kingdom"
+        },
+        "countryiso3code": "GBR",
+        "date": "2024",
+        "value": 5860.23925781,
+        "unit": "",
+        "obs_status": "",
+        "decimal": 2
+      },
+      {
+        "indicator": {
+          "id": "SH.XPD.CHEX.PC.CD",
+          "value": "Current health expenditure per capita (current US$)"
+        },
+        "country": {
+          "id": "GB",
+          "value": "United Kingdom"
+        },
+        "countryiso3code": "GBR",
+        "date": "2023",
+        "value": 5407.17041016,
+        "unit": "",
+        "obs_status": "",
+        "decimal": 2
+      },
+      {
+        "indicator": {
+          "id": "SH.XPD.CHEX.PC.CD",
+          "value": "Current health expenditure per capita (current US$)"
+        },
+        "country": {
+          "id": "GH",
+          "value": "Ghana"
+        },
+        "countryiso3code": "GHA",
+        "date": "2024",
+        "value": null,
+        "unit": "",
+        "obs_status": "",
+        "decimal": 2
+      },
+      {
+        "indicator": {
+          "id": "SH.XPD.CHEX.PC.CD",
+          "value": "Current health expenditure per capita (current US$)"
+        },
+        "country": {
+          "id": "GH",
+          "value": "Ghana"
+        },
+        "countryiso3code": "GHA",
+        "date": "2023",
+        "value": 70.25730896,
+        "unit": "",
+        "obs_status": "",
+        "decimal": 2
+      },
+      {
+        "indicator": {
+          "id": "SH.XPD.CHEX.PC.CD",
+          "value": "Current health expenditure per capita (current US$)"
+        },
+        "country": {
+          "id": "KE",
+          "value": "Kenya"
+        },
+        "countryiso3code": "KEN",
+        "date": "2024",
+        "value": null,
+        "unit": "",
+        "obs_status": "",
+        "decimal": 2
+      },
+      {
+        "indicator": {
+          "id": "SH.XPD.CHEX.PC.CD",
+          "value": "Current health expenditure per capita (current US$)"
+        },
+        "country": {
+          "id": "KE",
+          "value": "Kenya"
+        },
+        "countryiso3code": "KEN",
+        "date": "2023",
+        "value": 84.958992,
+        "unit": "",
+        "obs_status": "",
+        "decimal": 2
+      },
+      {
+        "indicator": {
+          "id": "SH.XPD.CHEX.PC.CD",
+          "value": "Current health expenditure per capita (current US$)"
+        },
+        "country": {
+          "id": "NG",
+          "value": "Nigeria"
+        },
+        "countryiso3code": "NGA",
+        "date": "2024",
+        "value": null,
+        "unit": "",
+        "obs_status": "",
+        "decimal": 2
+      },
+      {
+        "indicator": {
+          "id": "SH.XPD.CHEX.PC.CD",
+          "value": "Current health expenditure per capita (current US$)"
+        },
+        "country": {
+          "id": "NG",
+          "value": "Nigeria"
+        },
+        "countryiso3code": "NGA",
+        "date": "2023",
+        "value": 66.82009125,
+        "unit": "",
+        "obs_status": "",
+        "decimal": 2
+      },
+      {
+        "indicator": {
+          "id": "SH.XPD.CHEX.PC.CD",
+          "value": "Current health expenditure per capita (current US$)"
+        },
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "2024",
+        "value": null,
+        "unit": "",
+        "obs_status": "",
+        "decimal": 2
+      },
+      {
+        "indicator": {
+          "id": "SH.XPD.CHEX.PC.CD",
+          "value": "Current health expenditure per capita (current US$)"
+        },
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "2023",
+        "value": 13473.19335938,
+        "unit": "",
+        "obs_status": "",
+        "decimal": 2
+      },
+      {
+        "indicator": {
+          "id": "SH.XPD.CHEX.PC.CD",
+          "value": "Current health expenditure per capita (current US$)"
+        },
+        "country": {
+          "id": "ZA",
+          "value": "South Africa"
+        },
+        "countryiso3code": "ZAF",
+        "date": "2024",
+        "value": null,
+        "unit": "",
+        "obs_status": "",
+        "decimal": 2
+      },
+      {
+        "indicator": {
+          "id": "SH.XPD.CHEX.PC.CD",
+          "value": "Current health expenditure per capita (current US$)"
+        },
+        "country": {
+          "id": "ZA",
+          "value": "South Africa"
+        },
+        "countryiso3code": "ZAF",
+        "date": "2023",
+        "value": 536.58843994,
+        "unit": "",
+        "obs_status": "",
+        "decimal": 2
+      }
+    ]
+  ]
+}

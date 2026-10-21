@@ -1,0 +1,11 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {hospitalModel,defaultHospital} from '../lib/hospital-model.mjs';
+const near=(a,b)=>assert.ok(Math.abs(a-b)<1e-6,`${a} != ${b}`);
+test('default annual revenue and fixed costs use 365 days and 12 months',()=>{const r=hospitalModel();near(r.capex,2585);near(r.bedDays,6570);near(r.billed,737.25);near(r.collected,663.525);near(r.fixed,411.6);near(r.operatingCash,52.8675);near(r.afterReserve,-22.1325);});
+test('zero collections produce no cash and no achievable billing break-even',()=>{const r=hospitalModel({collection:0});near(r.collected,0);near(r.operatingCash,-r.fixed);assert.equal(r.breakEvenOccupancy,null);assert.equal(r.breakEvenBilling,null);});
+test('replacement reserve is not double-counted in lifecycle spending',()=>{const r=hospitalModel();near(r.replacementTotal,600);near(r.lifecycleCost,r.capex+10*r.opex+600);near(r.workingCapital,r.opex/2);});
+test('changing horizon includes each replacement event exactly once',()=>{const r=hospitalModel({years:16,replacementYears:8});near(r.replacementTotal,1200);assert.equal(r.rows.filter(x=>x.replacement>0).length,2);});
+test('break-even occupancy returns the actual zero-operating-cash point',()=>{const r=hospitalModel();assert.ok(r.breakEvenOccupancy>0&&r.breakEvenOccupancy<100);near(hospitalModel({occupancy:r.breakEvenOccupancy}).operatingCash,0);});
+test('invalid and non-finite model inputs cannot leak into outputs',()=>{for(const input of [{occupancy:101},{collection:-1},{visits:NaN},{replacementYears:0},{years:2.5}])assert.throws(()=>hospitalModel(input));assert.equal(defaultHospital.occupancy,60);});
+test('zero inpatient tariff does not yield an infinite occupancy target',()=>assert.equal(hospitalModel({bedDayFee:0}).breakEvenOccupancy,null));
