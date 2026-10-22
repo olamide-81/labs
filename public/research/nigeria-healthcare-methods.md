@@ -40,3 +40,13 @@ Dated registry export; facility readiness inspections; active staff by cadre and
 
 ## Revision policy
 Retain the prior release, identify source/definition changes, rerun arithmetic checks and record corrections. Contact hello@labs.gratebridge.com with the source and specific correction. No field study or independent impact evaluation is claimed.
+
+## Plain-language expansion — 22 October 2026
+
+The top-line doctors/nurses/midwives range is an arithmetic overlap bound, not a confidence interval: population × (4.1 + max(11.4, 6.7)) / 10,000 to population × (4.1 + 11.4 + 6.7) / 10,000, rounded to thousands. It assumes doctors are distinct from the other two cadres and ranges from complete nurse–midwife overlap to none. It excludes other cadres and does not establish active staffing.
+
+UK and Germany comparisons use OECD Health at a Glance 2025 country notes (3.4 and 4.7 practising doctors per 1,000, latest available observations). Nigeria uses WHO 2024 reported density (0.41 per 1,000). Different source years and stock/practice definitions limit comparability. People per doctor = 1,000 / density. Nigeria-at-comparator calculations are population × comparator density / 1,000, not staffing targets.
+
+Facility population ratios use 2024 population and the 2023 facility inventory and are scale illustrations, not measured catchments. The 1,295 upgraded PHCs (August 2025) and 20 states with active emergency-team operations (April 2026 federal briefing) are programme measures, not national equipped-hospital or responder headcounts. No national responder estimate has been fabricated from state coverage.
+
+Hospital-network costs scale the published default scenario; they are not observed project costs. China construction descriptions are contractor accounts, not audited costs. Video titles, publisher metadata and descriptions were checked, not full transcripts or independent evaluations. Country lessons and implementation options are explicitly proposals, not guarantees of transferable outcomes.
